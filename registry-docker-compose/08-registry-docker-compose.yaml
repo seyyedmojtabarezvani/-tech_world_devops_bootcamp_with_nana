@@ -1,0 +1,13 @@
+version: '3'
+services:
+  registry:
+    image: registry
+    ports:
+      - 5000:5000
+    volumes:
+      - registry-data
+    restart: always
+
+volumes:
+  registry-data:
+    driver: local

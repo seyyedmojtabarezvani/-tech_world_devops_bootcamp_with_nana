@@ -1,0 +1,40 @@
+version: '3'
+services:
+# Container name (MongoDB)
+  mongodb:
+  # Image name
+    image: mongo
+  # Container ports
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+  # Environment variables
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=159753
+  # Networks
+    # networks:
+    #   - mongo-network
+# Container name (Mongo-express)
+  mongo-express:
+  # Image name
+    image: mongo-express
+  # Container ports
+    ports:
+      - 8082:8081
+  # Environment variables
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=159753
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    depends_on:
+      - mongodb
+    restart: always
+  # Networks
+    # networks:
+    #   - mongo-network
+
+volumes:
+  mongo-data:
+    driver: local
